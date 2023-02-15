@@ -1,8 +1,9 @@
 #include<stdio.h>
 #include<immintrin.h>
 #include<stdlib.h>
-#define LIN 8
-#define COL 8
+
+#define LIN 1024
+#define COL 1024
 
 int verifica_linha(int* v , int index_linha) ; 
 
