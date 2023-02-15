@@ -3,8 +3,8 @@
 #include<immintrin.h>
 #include<omp.h>
 
-#define LIN 8 
-#define COL 8
+#define LIN 16
+#define COL 16
 
 int main()
 {
@@ -39,8 +39,9 @@ int main()
         {
             __m256i inteiros = _mm256_set1_epi32(ma[i][j]) ;
             __m256i inteiros2 = _mm256_set1_epi32(mb[i][j]) ; 
-            __m256i soma = _mm256_add_epi32(inteiros , inteiros2) ;
-            _mm256_storeu_si256( (__m256i*)&mc[i][j],soma) ; 
+            //__m256i soma = _mm256_add_epi32(inteiros , inteiros2) ;
+            //_mm256_storeu_si256( (__m256i*)&mc[i][j],soma) ;  
+            
         }
     } 
 
@@ -52,12 +53,5 @@ int main()
         }  
         printf("\n") ; 
     }
-        
-             
-
-
-  
-
-
     
 }
