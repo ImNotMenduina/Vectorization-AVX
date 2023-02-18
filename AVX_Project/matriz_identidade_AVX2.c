@@ -11,7 +11,6 @@ int main(int argc , char* argv[])
     const int COL = TAM ; 
     int* v   ;
     int soma = 0 ; 
-    __m256i load_line256BITS  ;
 
     int** matrix = (int**) aligned_alloc(32 , sizeof(int*)*LIN) ; 
     for(int i=0; i<LIN ; i++)
@@ -28,17 +27,34 @@ int main(int argc , char* argv[])
         }
     }
     
+    __m256i sum ; 
     for(int i=0 ; i<LIN ; i++)
     {
         
-        for(int j=0 ; j<COL ; j+=8)
+        for(int j=0 ; j<COL ; j+=64)
         {   
-            //sum = _mm256_setzero_si256() ; 
+            sum = _mm256_setzero_si256() ; 
             if(j == i && matrix[i][j] != 1)
                 return -1 ; 
 
-            load_line256BITS =_mm256_load_si256((__m256i*)&matrix[i][j]) ; 
-            v = (int*)&load_line256BITS ; 
+            __m256i load0_line256BITS =_mm256_load_si256((__m256i*)&matrix[i][j]) ;
+            __m256i load1_line256BITS =_mm256_load_si256((__m256i*)&matrix[i][j + 8]) ; 
+            __m256i load2_line256BITS =_mm256_load_si256((__m256i*)&matrix[i][j + 16]) ; 
+            __m256i load3_line256BITS =_mm256_load_si256((__m256i*)&matrix[i][j + 24]) ; 
+            __m256i load4_line256BITS =_mm256_load_si256((__m256i*)&matrix[i][j + 32]) ; 
+            __m256i load5_line256BITS =_mm256_load_si256((__m256i*)&matrix[i][j + 40]) ; 
+            __m256i load6_line256BITS =_mm256_load_si256((__m256i*)&matrix[i][j + 48]) ; 
+            __m256i load7_line256BITS =_mm256_load_si256((__m256i*)&matrix[i][j + 56]) ;  
+            sum = _mm256_add_epi32(sum , load0_line256BITS);
+            sum = _mm256_add_epi32(sum , load1_line256BITS);
+            sum = _mm256_add_epi32(sum , load2_line256BITS);
+            sum = _mm256_add_epi32(sum , load3_line256BITS);
+            sum = _mm256_add_epi32(sum , load4_line256BITS);
+            sum = _mm256_add_epi32(sum , load5_line256BITS);
+            sum = _mm256_add_epi32(sum , load6_line256BITS);
+            sum = _mm256_add_epi32(sum , load7_line256BITS);
+
+            v = (int*)&sum ; 
             
             if(!verifica_linha(v , &soma)) 
                 return -1 ; 
