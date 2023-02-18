@@ -2,13 +2,17 @@
 #include<immintrin.h>
 #include<stdlib.h>
 
-#define LIN 1024
-#define COL 1024
+int verifica_linha(int* v , int* soma) ; 
 
-int verifica_linha(int* v , int index_linha) ; 
-
-int main()
+int main(int argc , char* argv[])
 {
+    const int TAM = atoi(argv[1]) ; 
+    const int LIN = TAM ; 
+    const int COL = TAM ; 
+    int* v   ;
+    int soma = 0 ; 
+    __m256i load_line256BITS  ;
+
     int** matrix = (int**) aligned_alloc(32 , sizeof(int*)*LIN) ; 
     for(int i=0; i<LIN ; i++)
     {
@@ -20,43 +24,49 @@ int main()
         for(int j=0 ; j<COL ; j++)
         {
             if(i==j) matrix[i][j] = 1 ; 
-            else    matrix[i][j] = 2 ; 
+            else    matrix[i][j] = 0 ; 
         }
     }
     
     for(int i=0 ; i<LIN ; i++)
     {
-        __m256i sum = _mm256_setzero_si256() ; 
+        
         for(int j=0 ; j<COL ; j+=8)
         {   
-            __m256i load_line256BITS  ;
-            load_line256BITS =_mm256_load_si256((__m256i*)&matrix[i][j]) ; 
-            sum = _mm256_add_epi32(sum , load_line256BITS) ; 
-        }
-        int* v = (int*)&sum ; 
+            //sum = _mm256_setzero_si256() ; 
+            if(j == i && matrix[i][j] != 1)
+                return -1 ; 
 
-        verifica_linha(v , i) ; 
-    }   
+            load_line256BITS =_mm256_load_si256((__m256i*)&matrix[i][j]) ; 
+            v = (int*)&load_line256BITS ; 
+            
+            if(!verifica_linha(v , &soma)) 
+                return -1 ; 
+        }
+        soma = 0 ;
+
+    }  
+        
+    printf("Matriz Identidade !") ; 
 
     return 0 ; 
 }
 
-int verifica_linha(int* v , int index_linha)
+int verifica_linha(int* v , int* soma)
 {
-    if(v[index_linha] == 1)
-        {
-            int sum = 0 , i = 0 ; 
+            int i = 0; 
 
-            for(int i=0 ; i<COL && sum < 2 ; i++)
-                sum += v[i] ; 
-            
-            if(sum > 1)
+            while(*soma <= 1 && i < 8)
+            {
+                *soma += v[i] ; 
+                i++ ; 
+            }  
+            if(*soma > 1)
+            {
+                return 0 ; 
+            }
+            else
             {
                 return 1 ; 
-            }
-        }
-        else
-        {
-                return 1 ; 
-        }
+            }   
 }
