@@ -23,14 +23,16 @@ int main(int argc, char *argv[])
         for(int i=0 ; i<LIN ; i++)
             matriz_C[i] = (int*)aligned_alloc(32 ,COL * sizeof(int)) ; 
         
+        //Povoar as matrizes com numeros randomicos entre 0 e 9999
         for(int i=0 ; i<LIN ; i++)
         {
             for(int j=0 ; j<COL ; j++)
             {
-                matriz_A[i][j] = 5 ; 
-                matriz_B[i][j] = 4 ; 
+                matriz_A[i][j] = (rand() % 1000) ; 
+                matriz_B[i][j] = (rand() % 1000) ; 
             }
         }
+    //aqui eu vou criar uma mask caso a ordem da matriz nao seja divisivel por 8
 
         for(int i = 0 ; i<LIN ; i++)
         {
@@ -71,10 +73,10 @@ int main(int argc, char *argv[])
                     __m256i vect09 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+72]) ; 
                     __m256i vect10 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+80]) ; 
                     __m256i vect11 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+88]) ; 
-                    __m256i vect12 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+96])   ; 
+                    __m256i vect12 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+96])  ; 
                     __m256i vect13 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+104]) ; 
-                    __m256i vect14 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+112]) ; 
-                    __m256i vect15 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+120]) ;  
+                    __m256i vect14 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+112]) ;
+                    __m256i vect15 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+120]) ;
 
                     //MULTIPLICO O ELEMENTO DA LINHA A POR TODOS OS ELEMENTOS 128 COLUNAS SUBSEQUENTES
                     __m256i prod00 = _mm256_mullo_epi32(Elemento_LIN_A , vect00) ; 
@@ -128,7 +130,8 @@ int main(int argc, char *argv[])
                 _mm256_storeu_si256((__m256i*)&matriz_C[i][j+112] , soma256_14) ; 
                 _mm256_storeu_si256((__m256i*)&matriz_C[i][j+120] , soma256_15) ;  
             }
-        } 
+        }    
 
+       
     return 0 ; 
 }
