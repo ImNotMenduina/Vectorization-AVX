@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
                 __m256i soma256_5 = _mm256_setzero_si256();
                 __m256i soma256_6 = _mm256_setzero_si256();
                 __m256i soma256_7 = _mm256_setzero_si256();
-  /*               __m256i soma256_8 = _mm256_setzero_si256();
+  /*            __m256i soma256_8 = _mm256_setzero_si256();
                 __m256i soma256_9 = _mm256_setzero_si256();
                 __m256i soma256_10 = _mm256_setzero_si256();
                 __m256i soma256_11 = _mm256_setzero_si256();
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
                     __m256i vect05 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+40]) ; 
                     __m256i vect06 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+48]) ;
                     __m256i vect07 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+56]) ;
-/*                     __m256i vect08 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+64]) ;  
+/*                  __m256i vect08 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+64]) ;  
                     __m256i vect09 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+72]) ; 
                     __m256i vect10 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+80]) ; 
                     __m256i vect11 = _mm256_loadu_si256((__m256i*)&matriz_B[k][j+88]) ; 
@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
                     __m256i prod05 = _mm256_mullo_epi32(Elemento_LIN_A , vect05) ; 
                     __m256i prod06 = _mm256_mullo_epi32(Elemento_LIN_A , vect06) ; 
                     __m256i prod07 = _mm256_mullo_epi32(Elemento_LIN_A , vect07) ;
-   /*                  __m256i prod08 = _mm256_mullo_epi32(Elemento_LIN_A , vect08) ; 
+   /*               __m256i prod08 = _mm256_mullo_epi32(Elemento_LIN_A , vect08) ; 
                     __m256i prod09 = _mm256_mullo_epi32(Elemento_LIN_A , vect09) ; 
                     __m256i prod10 = _mm256_mullo_epi32(Elemento_LIN_A , vect10) ; 
                     __m256i prod11 = _mm256_mullo_epi32(Elemento_LIN_A , vect11) ; 
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
                     soma256_5 = _mm256_add_epi32(soma256_5 , prod05) ; 
                     soma256_6 = _mm256_add_epi32(soma256_6 , prod06) ; 
                     soma256_7 = _mm256_add_epi32(soma256_7 , prod07) ; 
-        /*             soma256_8 = _mm256_add_epi32(Elemento_LIN_A , prod08) ; 
+        /*          soma256_8 = _mm256_add_epi32(Elemento_LIN_A , prod08) ; 
                     soma256_9 = _mm256_add_epi32(Elemento_LIN_A , prod09) ; 
                     soma256_10 = _mm256_add_epi32(Elemento_LIN_A , prod10) ; 
                     soma256_11 = _mm256_add_epi32(Elemento_LIN_A , prod11) ; 
@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
                 _mm256_storeu_si256((__m256i*)&matriz_C[i][j+40] , soma256_5) ; 
                 _mm256_storeu_si256((__m256i*)&matriz_C[i][j+48] , soma256_6) ; 
                 _mm256_storeu_si256((__m256i*)&matriz_C[i][j+56] , soma256_7) ; 
-     /*            _mm256_storeu_si256((__m256i*)&matriz_C[i][j+64] , soma256_8) ; 
+     /*         _mm256_storeu_si256((__m256i*)&matriz_C[i][j+64] , soma256_8) ; 
                 _mm256_storeu_si256((__m256i*)&matriz_C[i][j+72] , soma256_9) ; 
                 _mm256_storeu_si256((__m256i*)&matriz_C[i][j+80] , soma256_10) ; 
                 _mm256_storeu_si256((__m256i*)&matriz_C[i][j+88] , soma256_11) ; 
