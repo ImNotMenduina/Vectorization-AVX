@@ -1,7 +1,5 @@
 #include<stdio.h>
-#include<immintrin.h>
 #include<stdlib.h>
-#include<malloc.h>
 
 int main(int argc , char* argv[])
 {
@@ -23,12 +21,13 @@ int main(int argc , char* argv[])
         mc[i] = (int*) malloc(COL * sizeof(int)) ;
 
     for(int i=0 ; i<LIN ; i++)
+    {
         for(int j=0 ; j<COL ; j++)
-            ma[i][j] = 5; 
-
-    for(int i=0 ; i<LIN ; i++)
-        for(int j=0 ; j<COL ; j++)
-            mb[i][j] = 4 ; 
+        {
+            ma[i][j] = (rand() % 1000);
+            mb[i][j] = (rand() % 1000) ;
+        }
+    } 
 
     for(int i=0 ; i<LIN ; i++)
     {
